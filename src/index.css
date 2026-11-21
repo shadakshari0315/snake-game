@@ -1,2 +1,21 @@
 @import "tailwindcss";
- 
+
+@keyframes pop-in { 0% { transform: scale(0) rotate(-25deg); } 70% { transform: scale(1.25); } 100% { transform: scale(1); } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8%); } }
+@keyframes float-up { 0% { opacity: 1; transform: translateY(0) scale(0.8); } 100% { opacity: 0; transform: translateY(-150%) scale(1.3); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+@keyframes fade-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: none; } }
+@keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.35); color: #fde047; } 100% { transform: scale(1); } }
+@keyframes flick { 0%, 55%, 100% { transform: scaleX(1); } 25% { transform: scaleX(0.35); } }
+
+.fruit-pop { animation: pop-in 0.35s ease-out; }
+.fruit-bob { display: block; animation: bob 1.2s ease-in-out infinite; }
+.score-pop { animation: float-up 0.8s ease-out forwards; }
+.board-shake { animation: shake 0.5s ease-in-out; }
+.fade-in { animation: fade-in 0.3s ease-out; }
+.bump { display: inline-block; animation: bump 0.3s ease-out; }
+.tongue { transform-box: fill-box; transform-origin: left center; animation: flick 1.1s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; }
+}
