@@ -1,10 +1,10 @@
 import useSnakeGame from "./useSnakeGame.js";
 import { FRUITS } from "./game";
-import Board from "./components/Board";
-import Snake from "./components/Snake";
-import Fruit, { ScorePops } from "./components/Fruit";
-import ScoreBoard, { Leaderboard } from "./components/ScoreBoard";
-import GameOverModal, { btn } from "./components/GameOverModal";
+import Board from "./Components/Board";
+import Snake from "./Components/Snake";
+import Fruit, { ScorePops } from "./Components/Fruit";
+import ScoreBoard, { Leaderboard } from "./Components/ScoreBoard";
+import GameOverModal, { btn } from "./Components/GameOverModal";
 
 const PAGE_IMAGE = "/page-bg.svg"; // picture behind the whole page (public folder)
 
