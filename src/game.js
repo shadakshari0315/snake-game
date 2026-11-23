@@ -18,11 +18,11 @@ export const KEY_MAP = {
 
 // Each fruit has its own point value
 export const FRUITS = [
-  { name: "Apple", emoji: "🍎", points: 10 },
-  { name: "Banana", emoji: "🍌", points: 10 },
-  { name: "Cherry", emoji: "🍒", points: 15 },
-  { name: "Grapes", emoji: "🍇", points: 20 },
-  { name: "Watermelon", emoji: "🍉", points: 25 },
+  { name: "Apple", emoji: "🍎", points: 10, color: "#ef4444" },
+  { name: "Banana", emoji: "🍌", points: 10, color: "#facc15" },
+  { name: "Cherry", emoji: "🍒", points: 15, color: "#e11d48" },
+  { name: "Grapes", emoji: "🍇", points: 20, color: "#a855f7" },
+  { name: "Watermelon", emoji: "🍉", points: 25, color: "#22c55e" },
 ];
 
 // Position of a grid cell as CSS percentages

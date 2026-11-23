@@ -2,7 +2,7 @@ import useSnakeGame from "./useSnakeGame.js";
 import { FRUITS } from "./game";
 import Board from "./Components/Board";
 import Snake from "./Components/Snake";
-import Fruit, { ScorePops } from "./Components/Fruit";
+import Fruit, { ScorePops, Bursts } from "./Components/Fruit";
 import ScoreBoard, { Leaderboard } from "./Components/ScoreBoard";
 import GameOverModal, { btn } from "./Components/GameOverModal";
 
@@ -46,8 +46,17 @@ export default function App() {
 
           <div className="relative aspect-square w-[min(92vw,480px)]">
             <Board shake={over && !g.result.won}>
-              <Snake segments={g.snake} dead={over && !g.result.won} />
+              <Snake
+                segments={g.snake}
+                prev={g.prev}
+                smooth={g.smooth}
+                fed={g.fed}
+                ms={g.delay}
+                chomp={g.eaten}
+                dead={over && !g.result.won}
+              />
               <Fruit fruit={g.fruit} />
+              <Bursts pops={g.pops} />
               <ScorePops pops={g.pops} />
             </Board>
 

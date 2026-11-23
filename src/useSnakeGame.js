@@ -13,7 +13,10 @@ export default function useSnakeGame() {
   const [wrap, setWrap] = useState(true); // true: wrap around walls, false: walls end the game
   const [eaten, setEaten] = useState(0);
   const [result, setResult] = useState({ newHigh: false, canSave: false, won: false });
-  const [pops, setPops] = useState([]); // floating "+10" labels
+  const [pops, setPops] = useState([]); // floating "+10" labels + burst effect
+  const [prev, setPrev] = useState(START_SNAKE); // snake before the last move (used to animate sliding)
+  const [smooth, setSmooth] = useState(false); // false right after a reset so the snake does not slide back to the start
+  const [fed, setFed] = useState([]); // body segments currently "carrying" a swallowed fruit
 
   // Refs always hold the latest values, so the timer and key handler never read stale state
   const snakeRef = useRef(START_SNAKE);
@@ -58,14 +61,20 @@ export default function useSnakeGame() {
     // 5. move
     const next = [{ x: nx, y: ny }, ...kept];
     snakeRef.current = next;
+    setPrev(body);
+    setSmooth(true);
     setSnake(next);
+    setFed((f) => {
+      const moved = f.map((i) => i + 1).filter((i) => i < next.length);
+      return ate ? [0, ...moved] : moved;
+    });
 
     // 6. eat
     if (ate) {
       scoreRef.current += f.points;
       setScore(scoreRef.current);
       setEaten((n) => n + 1);
-      const pop = { id: f.id, x: f.x, y: f.y, points: f.points };
+      const pop = { id: f.id, x: f.x, y: f.y, points: f.points, color: f.color };
       setPops((p) => [...p.slice(-3), pop]);
       setTimeout(() => setPops((p) => p.filter((q) => q.id !== pop.id)), 800);
 
@@ -84,6 +93,9 @@ export default function useSnakeGame() {
     const f = spawnFruit(START_SNAKE);
     fruitRef.current = f;
     setSnake(START_SNAKE);
+    setPrev(START_SNAKE);
+    setSmooth(false);
+    setFed([]);
     setFruit(f);
     setScore(0);
     setEaten(0);
@@ -157,6 +169,7 @@ export default function useSnakeGame() {
 
   return {
     snake, fruit, score, leaderboard, status, wrap, setWrap, result, pops,
+    prev, smooth, fed, eaten, delay,
     highScore: leaderboard[0]?.score ?? 0,
     level: Math.min(eaten, 18) + 1,
     start, turn, togglePause, saveScore, skipSave,
